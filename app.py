@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Global Varibles 
 base_url = "https://flipkart.com"
-dbConn = pymongo.MongoClient("mongodb://localhost:27017/")
+dbConn = pymongo.MongoClient("mongodb+srv://mongodbuser:mongodbpassword@cluster0-lsptd.mongodb.net/test?retryWrites=true&w=majority")
 db_name = "flipkart"
 db = dbConn[db_name]
 
@@ -79,14 +79,16 @@ def search_first_box_url(url, search_string) :
 
 
 
+# search product name then we have to create the collections
+
 @app.route("/", methods = ["GET", "POST"])
 def home() :
     if request.method == "POST" :
         search_string = request.form['searchString'] # need to make a collections name = search_string
         search_string = search_string.replace(" ", "") 
 
-        reviews = db[search_string].find({})
-        if reviews.count() > 0 :   # return the results
+        reviews = db[search_string].find({}) # return the cursor objects take all the reviews
+        if db[search_string].count_documents({}) > 0 :   # return the results
             return render_template("result.html", reviews = reviews)
 
         else : # Crawl from the sites

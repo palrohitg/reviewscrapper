@@ -28,9 +28,12 @@
       </tr>
     </thead>
     <tbody>
+    <!-- {% set count = 1 %} -->
     {% for one_review in reviews %}
+
       <tr>
-        <th scope="row">{{ one_review._id }}</th>
+        <th scope="row">{{ loop.index }}</th>
+        <!-- {% set count = count + 1 %} -->
         <td>{{ one_review.title }}</td>
         <td>{{ one_review.review }}</td>
         <td>{{ one_review.user_name }}</td>
