@@ -29,9 +29,9 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
         pip install -r requirements.txt
 
-4. Configure the mongoDB not mandatory:
+4. Configure the mongoDB not mandatory [mlab](https://mlab.com/) :
     
-        [malb](https://mlab.com/) create Cluster and User Access and Network if need to make changes to db.
+         create Cluster, User Access and Network if need to make changes to db.
 
 5. Run the reviewscrapper and enjoy : 
 
