@@ -18,24 +18,24 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
 1. Clone the repository by using Git Client: 
 
-    git clone https://github.com/palrohitg/reviewscrapper.git
+         git clone https://github.com/palrohitg/reviewscrapper.git
 
 2. Make a virtual environment mandatory: 
 
-    * install pip, pipenv
-    * make the virtual env and activate it 
+         * install pip, pipenv
+         * make the virtual env and activate it 
 
 3. Install the Packages: 
 
-    pip install -r requirements.txt
+        pip install -r requirements.txt
 
 4. Configure the mongoDB not mandatory:
     
-    [malb](https://mlab.com/) create Cluster and User Access and Network if need to make changes to db.
+        [malb](https://mlab.com/) create Cluster and User Access and Network if need to make changes to db.
 
 5. Run the reviewscrapper and enjoy : 
 
-    python app.py
+        python app.py
 
 ## :dart:	Scope of Improvement : 
 
