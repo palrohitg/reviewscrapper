@@ -38,6 +38,8 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
         python app.py
 
+6. Finally don't forget to put Star :sunglasses:
+
 ## :dart:	Scope of Improvement : 
 
 * :blossom: UI can more Interactive. 

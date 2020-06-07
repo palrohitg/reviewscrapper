@@ -82,8 +82,13 @@ def search_first_box_url(url, search_string) :
     
     u_client = requests.get(url)
     soup = bs(u_client.content, "html.parser")
-    first_box_url = base_url + soup.find(class_ = "_31qSD5")['href'] # first box url links
-    print(first_box_url)
+    first_box_url = ""
+    try :
+        first_box_url = base_url + soup.find(class_ = "_31qSD5")['href'] # For vertical design
+        print(first_box_url)
+    except  Exception :
+        first_box_url = base_url + soup.find(class_ = "Zhf2z-")['href'] # For horizontal design
+        print(first_box_url)
     return review_url(first_box_url, search_string)
 
 
@@ -96,19 +101,22 @@ def home() :
         search_string = request.form['searchString'] # need to make a collections name = search_string
         search_string = search_string.replace(" ", "") 
 
+        try : 
+            if db[search_string].count_documents({}) > 0 :   # return the results
+                reviews = db[search_string].find({})
+                return render_template("result.html", reviews = reviews, file_name = search_string + ".csv")
 
-        if db[search_string].count_documents({}) > 0 :   # return the results
-            reviews = db[search_string].find({})
-            return render_template("result.html", reviews = reviews)
-
-        else : # Crawl from the sites
-            url = base_url + "/search?q=" + str(search_string)
-            print(url)
-            dic_result = search_first_box_url(url, search_string)
-            df = pd.DataFrame(dic_result)
-            df.to_csv("static/CSVs/" + search_string + ".csv", index=False) # store into the csv folder
-            reviews = db[search_string].find({})
-            return render_template('result.html', reviews = reviews, file_name = search_string + ".csv")
+            else : # Crawl from the sites
+                url = base_url + "/search?q=" + str(search_string)
+                print(url)
+                dic_result = search_first_box_url(url, search_string)
+                df = pd.DataFrame(dic_result)
+                df.to_csv("static/CSVs/" + search_string + ".csv", index=False) # store into the csv folder
+                reviews = db[search_string].find({})
+                return render_template('result.html', reviews = reviews, file_name = search_string + ".csv")
+        except Exception:
+            print("Rarely going to happens")
+    
     return render_template("index.html")
 
 @app.route('/test') 
