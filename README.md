@@ -23,6 +23,7 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 2. Make a virtual environment mandatory: 
 
          * install pip, pipenv
+         * Python -m venv virtual_env_name
          * make the virtual env and activate it 
 
 3. Install the Packages: 
@@ -47,12 +48,3 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
 * :beers:	[reviewscrapper](https://vikas-webscrapper-review.herokuapp.com/) :beers:
 * **Note**: Site maybe down I m working :crossed_fingers:
-
-    
-
-
-
-
-
-
-
