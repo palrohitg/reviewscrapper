@@ -120,10 +120,6 @@ def home() :
     
     return render_template("index.html")
 
-@app.route('/test') 
-@cross_origin()
-def test() :
-    return render_template("test.html")
 
 if __name__ == "__main__":
-    app.run(debug = False)
+    app.run(debug = True)
