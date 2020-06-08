@@ -48,5 +48,5 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
 ## :iphone:	Running Instance:
 
-* :beers:	[reviewscrapper](https://vikas-webscrapper-review.herokuapp.com/) :beers:
+* :beers:	[reviewscrapper](https://vikas-webscrappper-review.herokuapp.com/) :beers:
 * **Note**: Site maybe down I m working :crossed_fingers:
