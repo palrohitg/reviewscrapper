@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
 from bs4 import BeautifulSoup as bs
+from flask_cors import CORS, cross_origin
 import requests 
 import pymongo 
 import pandas as pd 
 import numpy as np
 
 app = Flask(__name__)
-
 # Global path varibles
 
 # Global Varibles 
@@ -96,6 +96,7 @@ def search_first_box_url(url, search_string) :
 # search product name then we have to create the collections
 
 @app.route("/", methods = ["GET", "POST"])
+@cross_origin()
 def home() :
     if request.method == "POST" :
         search_string = request.form['searchString'] # need to make a collections name = search_string
@@ -120,8 +121,9 @@ def home() :
     return render_template("index.html")
 
 @app.route('/test') 
+@cross_origin()
 def test() :
     return render_template("test.html")
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug = False)
