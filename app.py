@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from bs4 import BeautifulSoup as bs
 from flask_cors import CORS, cross_origin
 import requests 
@@ -93,11 +93,16 @@ def search_first_box_url(url, search_string) :
 
 
 
-# search product name then we have to create the collections
-
-@app.route("/", methods = ["GET", "POST"])
+# search product name then we have to create the collection
+@app.route("/")
 @cross_origin()
 def home() :
+    return render_template("index.html")
+
+
+@app.route("/result", methods = ["GET", "POST"]) 
+def result() : 
+    
     if request.method == "POST" :
         search_string = request.form['searchString'] # need to make a collections name = search_string
         search_string = search_string.replace(" ", "") 
@@ -117,9 +122,14 @@ def home() :
                 return render_template('result.html', reviews = reviews, file_name = search_string + ".csv")
         except Exception:
             print("Rarely going to happens")
-    
-    return render_template("index.html")
+    else :
+        return redirect('/')
 
+
+# handle the non existing urls 
+@app.errorhandler(404)
+def page_not_found(e):
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug = True)

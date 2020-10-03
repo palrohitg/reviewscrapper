@@ -14,12 +14,27 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Vikas Pal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">WebScrapper</a></li>
+    </ul>
+  </div>
+</nav>
+
+
 <div class="container">
   <div class="row">
+   <!-- Image and text -->
       <div class="col-md-4 col-md-offset-4">
         <h3> Flipkart WebScrapper</h3>
         <br>
-  <form class="form-inline md-form mr-auto mb-4" action="/" method="POST">
+  <form class="form-inline md-form mr-auto mb-4" action="/result" method="POST">
     <input class="form-control mr-sm-2" type="text" name = "searchString"  placeholder="Search" aria-label="Search">
     <button type="submit" class="btn btn-success btn-rounded">Success</button>
   </form>
