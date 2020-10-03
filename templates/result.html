@@ -1,65 +1,113 @@
-<!-- BootStrap CDN -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Scrapper</title>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<style>
-  .align{
-  justify-content: center;
-  text-align: center;
-}
-</style>  
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-<div class="container">
-  <div class="row">
-    <div class = "col-md-6 col-md-offset-3">
-    <nav class="navbar navbar-light bg-light justify-content-between">
-     <button type = "button" class="btn btn-success btn-rounded"> <a href="static/CSVs/{{file_name}}">Download CSV</a></button>  &nbsp; <hr>
-      <form class="form-inline" action="/" method="POST">
-        <input class="form-control " type="search" placeholder="Search" name = "searchString" aria-label="Search">&nbsp; &nbsp;
-        &nbsp;
-        &nbsp;
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
 
-        <button  class="btn btn-outline-success " type="submit">Search</button>
-      </form>
+</head>
+<body>
+    <!-- ======= navbar part ====== -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #322348;">
+        <a class="navbar-brand" href="home.html">Flipkart Review Scrapper</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01" style="padding: 0px 20px;">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/palrohitg/reviewscrapper"><i class="fa fa-github"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://linkedin.com"><i class="fa fa-linkedin-square"></i></a>
+          </li>
+        </ul>
+        </div>
     </nav>
-  </div>
-  </div>
-</div>
+    <!-- ========= navbar area ends here ========= -->
+    <!-- ############# copy till here as a commmon code in all parts ############ -->
 
-<div class="container">
-  <!-- Nav-bar -->
+    <!-- extracted data area -->
+      <div class="jumbotron">
+        <h1 class="display-4 text-center">Extracted Reviews</h1><br><br>
 
-  <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <h3 class = "align" >Result</h3>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Sr No</th>
-        <th scope="col">Title</th>
-        <th scope="col">Review</th>
-        <th scope="col">Username</th>
-      </tr>
-    </thead>
-    <tbody>
-    <!-- {% set count = 1 %} -->
-    {% for one_review in reviews %}
+        <!-- ========= form area ======== -->
+        <form class="form-inline" action="/" method="POST">
+          <div class="form-group col-md-6">
+            <input type="text" style="width: 100%;" name = "searchString" class="form-control" placeholder="Enter Product Name..." aria-label="Search">
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-success btn-rounded">Run Scrapper</button>
+          </div>
+        </form>
 
-      <tr>
-        <th scope="row">{{ loop.index }}</th>
-        <!-- {% set count = count + 1 %} -->
-        <td>{{ one_review.title }}</td>
-        <td>{{ one_review.review }}</td>
-        <td>{{ one_review.user_name }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-</div>
-</div>
-</div>
+        <hr class="my-4">
+        <p class="lead">You can download the results in <b>CSV</b> format by clicking the button on the bottom right corner</p>
+        <br>
+              <!-- Tables -->
+        <table class="table table-borderless table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Sr. No.</th>
+              <th scope="col">Title</th>
+              <th scope="col">Review</th>
+              <th scope="col">Username</th>
+            </tr>
+          </thead>
+          <!-- dynamically inserting table rows for retrieved data -->
+          <tbody>
+            <!-- {% set count = 1 %} -->
+            {% for one_review in reviews %}
+              <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <!-- {% set count = count + 1 %} -->
+                <td>{{ one_review.title }}</td>
+                <td>{{ one_review.review }}</td>
+                <td>{{ one_review.user_name }}</td>
+              </tr>
+            {% endfor %}
+        </table>
+
+        <div id="download">
+          <button type="button" class="btn btn-success btn-lg download-btn">
+            <a href="static/CSVs/{{file_name}}"><i class="fa fa-download"></i> Download CSV</a>
+          </button>
+        </div>      
+      </div>
+
+
+    <!-- ############# common footer area and scripts for all pages ############# -->    
+    <nav class="footer fixed-bottom">
+        <p>Crafted with <span style="color: tomato;">❤</span> using &nbsp;<i class="fa fa-github" style="color: #00abeec9; font-size: 18px;"></i></p>
+    </nav>
+
+
+    <!-- ============ Bootstrap JS =========== -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

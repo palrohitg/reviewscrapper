@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Scrapper</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Styles -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}"> -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- ======= navbar part ====== -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #322348;">
+        <a class="navbar-brand" href="home.html">Flipkart Review Scrapper</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01" style="padding: 0px 20px;">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/palrohitg/reviewscrapper"><i class="fa fa-github"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://linkedin.com"><i class="fa fa-linkedin-square"></i></a>
+          </li>
+        </ul>
+        </div>
+    </nav>
+    <!-- ========= navbar area ends here ========= -->
+    <!-- ############# copy till here as a commmon code in all parts ############ -->
+
+    <div class="jumbotron">
+        <h1 class="display-4">About Review Scrapper</h1>
+        <p class="lead">ReviewScrapper is a web based application which is primarly used to scraps the reviews for a particualar products from Ecommerce websites and save the reviews in the csv format that can be further used for Data-Analysis. ReviewScrapper also allows user to limit the reviews based on the Data requirement and scraps the reviews from the multiple pages.</p>
+        <hr class="my-4">
+        <p class="lead"><b>Technologies Used:</b></p>
+        <ul>
+            <li>Flask</li>
+            <li>MongoDB</li>
+            <li>BeautifulSoup</li>
+            <li>Python</li>
+            <li>Heroku</li>
+            <li>Bootstrap</li>
+        </ul>
+        <br><br>
+        <div class="card">
+            <h5 class="card-header text-center">About Author</h5>
+            <div class="card-body author">
+                <div class="row no-gutters">
+                    <div class="col-md-3 col-sm-12 author-img">
+                    <img src="static/images/img1.png" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        <div class="card-body">
+                            <h2 class="card-title">Rohit Pal</h2>
+                            <hr class="my-4">
+                            <p class="card-text text-justify desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo adipisci non provident velit distinctio ullam perferendis mollitia voluptates ut illo aliquam, eum iusto exercitationem assumenda cum aut sequi autem? Modi.
+                            Magni numquam rerum, reiciendis provident atque commodi cum velit eveniet officia nostrum culpa distinctio quo eligendi, iusto sequi quisquam explicabo? Debitis, aliquid eius incidunt eaque quidem dolorum inventore dolore beatae?
+                            Porro, reprehenderit similique? Aperiam ut tempora quo aliquam minima nesciunt quisquam voluptate nihil libero sapiente temporibus, possimus debitis laudantium itaque esse exercitationem dolor. Maiores, omnis inventore aut eveniet nesciunt eius.</p>
+                            <ul id="profile-links">
+                                <li>
+                                    <a class="link-icon" href="https://github.com/palrohitg/reviewscrapper"><i class="fa fa-github"></i></a>
+                                </li>
+                                <li>
+                                    <a class="link-icon" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a class="link-icon" href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                  <a class="link-icon" href="https://linkedin.com"><i class="fa fa-linkedin-square"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <h2 class="text-center">Contributors</h2>
+        <hr class="my-4">
+
+        <!-- Contributor Card row -->
+        <div class="row cards-wrapper">
+            <!-- Card Single -->
+            <div class="card col-sm-12 cntrb-card">
+                <div class="row no-gutters">
+                  <div class="col-md-4 col-sm-4 cntrb-img">
+                    <img src="static/images/img1.png" class="card-img" alt="...">
+                  </div>
+                  <div class="col-md-8 col-sm-8 col-xs-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Contributor Name</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <ul id="profile-links">
+                            <li>
+                                <a class="link-icon" href="https://github.com/"><i class="fa fa-github"></i></a>
+                            </li>
+                            <li>
+                                <a class="link-icon" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a class="link-icon" href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li>
+                              <a class="link-icon" href="https://linkedin.com"><i class="fa fa-linkedin-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- Card Single -->
+            <div class="card col-sm-12 cntrb-card-alt">
+                <div class="row no-gutters">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Contributor Name</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <ul id="profile-links">
+                                <li>
+                                    <a class="link-icon" href="https://github.com/"><i class="fa fa-github"></i></a>
+                                </li>
+                                <li>
+                                    <a class="link-icon" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a class="link-icon" href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                  <a class="link-icon" href="https://linkedin.com"><i class="fa fa-linkedin-square"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 cntrb-img">
+                        <img src="static/images/img2.png" class="card-img" alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contributor Card row -->
+        <div class="row cards-wrapper">
+            <!-- Card Single -->
+            <div class="card col-sm-12 cntrb-card">
+                <div class="row no-gutters">
+                  <div class="col-md-4 col-sm-4 cntrb-img">
+                    <img src="static/images/img3.png" class="card-img" alt="...">
+                  </div>
+                  <div class="col-md-8 col-sm-8 col-xs-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Contributor Name</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <ul id="profile-links">
+                            <li>
+                                <a class="link-icon" href="https://github.com/"><i class="fa fa-github"></i></a>
+                            </li>
+                            <li>
+                                <a class="link-icon" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a class="link-icon" href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li>
+                              <a class="link-icon" href="https://linkedin.com"><i class="fa fa-linkedin-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- Card Single -->
+            <div class="card col-sm-12 cntrb-card-alt">
+                <div class="row no-gutters">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Contributor Name</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <ul id="profile-links">
+                                <li>
+                                    <a class="link-icon" href="https://github.com/"><i class="fa fa-github"></i></a>
+                                </li>
+                                <li>
+                                    <a class="link-icon" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a class="link-icon" href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                  <a class="link-icon" href="https://linkedin.com"><i class="fa fa-linkedin-square"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 cntrb-img">
+                        <img src="static/images/img4.png" class="card-img" alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><br>
+    
+    <!-- ############# common footer area and scripts for all pages ############# -->
+    <nav class="footer fixed-bottom">
+        <p>Crafted with <span style="color: tomato;">❤</span> using &nbsp;<i class="fa fa-github" style="color: #00abeec9; font-size: 18px;"></i></p>
+    </nav>
+
+    <!-- ============ Bootstrap JS =========== -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
