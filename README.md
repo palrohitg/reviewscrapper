@@ -40,7 +40,7 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
 6. Finally don't forget to put Star :sunglasses:
 
-## :arrow_lower_right:	Outcome of Project :
+## :arrow_lower_right:	Outcome/Result:
   
   :ballot_box_with_check: Reduces the Customer time by 70% while spending time for checking review of the product. 
    :ballot_box_with_check: Helps to Gather information how's customer feels about the specific product and provide better services from business point of view. 
