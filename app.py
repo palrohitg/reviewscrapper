@@ -79,7 +79,7 @@ def review_url(first_box_url, search_string) :
     return extract_reviews(reviews_link, 10, search_string)
 
 def search_first_box_url(url, search_string) :
-    
+
     u_client = requests.get(url)
     soup = bs(u_client.content, "html.parser")
     first_box_url = ""
@@ -120,8 +120,9 @@ def result() :
                 df.to_csv("static/CSVs/" + search_string + ".csv", index=False) # store into the csv folder
                 reviews = db[search_string].find({})
                 return render_template('result.html', reviews = reviews, file_name = search_string + ".csv")
-        except Exception:
-            print("Rarely going to happens")
+        except Exception as error: 
+            error = "Our review scrapper cann't scraps this product could you checkout some electronic items"
+            return render_template('index.html', error=error)
     else :
         return redirect('/')
 
