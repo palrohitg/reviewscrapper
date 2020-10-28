@@ -55,7 +55,7 @@
         <h1 class="display-4 text-center">Extracted Reviews</h1><br><br>
 
         <!-- ========= form area ======== -->
-        <form class="form-inline" action="/" method="POST">
+        <form class="form-inline" action="/result" method="POST">
           <div class="form-group col-md-6">
             <input type="text" style="width: 100%;" name = "searchString" class="form-control" placeholder="Enter Product Name..." aria-label="Search">
           </div>
@@ -75,18 +75,21 @@
               <th scope="col">Title</th>
               <th scope="col">Review</th>
               <th scope="col">Username</th>
+              <th scope="col">Rating</th>
+
             </tr>
           </thead>
           <!-- dynamically inserting table rows for retrieved data -->
           <tbody>
-            <!-- {% set count = 1 %} -->
-            {% for one_review in reviews %}
+            {% set count = 1 %}
+            {% for key, value in reviews.iterrows() %}
               <tr>
                 <th scope="row">{{ loop.index }}</th>
-                <!-- {% set count = count + 1 %} -->
-                <td>{{ one_review.title }}</td>
-                <td>{{ one_review.review }}</td>
-                <td>{{ one_review.user_name }}</td>
+                {% set count = count + 1 %}
+                <td>{{ value['title'] }}</td>
+                <td>{{ value['review'] }}</td>
+                <td>{{ value['user_name'] }}</td>
+                <td>{{ value['rating'] }} &#11088;</td>
               </tr>
             {% endfor %}
         </table>

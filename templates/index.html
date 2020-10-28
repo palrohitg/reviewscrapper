@@ -62,8 +62,19 @@
       <hr class="my-4">
       <form action="/result" method="POST">
         <div class="form-group col-md-6">
-          <input class="form-control" type="text" name = "searchString" placeholder="Enter Product Name..." aria-label="Search">
+          <input class="form-control" type="text" name = "searchString" placeholder="Enter Product Name..." aria-label="Search" required>
         </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-success btn-rounded">Run Scrapper</button>
+        </div>
+      </form>
+      &nbsp;
+      <form action="/result-by-link" method="POST">
+        <div class="form-group col-md-6">
+          <input class="form-control" type="text" name = "searchStringLink" placeholder="Paste the product link..." aria-label="Search" required>
+        </div>
+        <label for="quantity">   (Range 1 and 150):</label>
+        <input type="number" id="quantity" name="noOfReview" min="1" max="150" value="10">
         <div class="col-auto">
           <button type="submit" class="btn btn-success btn-rounded">Run Scrapper</button>
         </div>

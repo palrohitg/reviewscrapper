@@ -1,4 +1,5 @@
 # :metal:	ReviewScrapper 	:snake:	
+![Review-Scrapper](https://socialify.git.ci/palrohitg/reviewscrapper?font=Source%20Code%20Pro&forks=1&issues=1&language=1&owner=1&pattern=Brick%20Wall&pulls=1&stargazers=1&theme=Light)
 
 ## :pushpin: Introduction 
 
@@ -43,8 +44,9 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
 ## :arrow_lower_right:	Outcome/Result:
   
-  :ballot_box_with_check: Reduces the Customer time by 70% while spending time for checking review of the product. 
-   :ballot_box_with_check: Helps to Gather information how's customer feels about the specific product and provide better services from business point of view. 
+  :ballot_box_with_check: Reduces the Customer time by 70% while spending time for checking review of the product.
+
+  :ballot_box_with_check: Helps to Gather information how's customer feels about the specific product and provide better services from business point of view. 
 
 
 ## :dart:	Scope of Improvement : 
