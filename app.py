@@ -191,9 +191,9 @@ def resultByLink() :
     else :
         return redirect('/')
 
-@app.route("/about") :
+@app.route("/about")
 def about() :
-    return render_template("about.html")
+    return render_template("about.html`")
 # handle the non existing urls 
 @app.errorhandler(404)
 def page_not_found(e):
