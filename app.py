@@ -52,7 +52,7 @@ def comment_box_page_review_link(prod_page_HTML=None) :
     fetch the content of the pages and return the link of page that contain all reviews 
     '''
     # find all reviews link that redirect to review pages
-    all_review_link_div = prod_page_HTML.find("div", {"class" : "swINJg"})
+    all_review_link_div = prod_page_HTML.find("div", {"class" : "_3UAT2v"})
     # review page links 
     reviews_link = base_URL + all_review_link_div.find_parent()['href'] 
     return reviews_link
@@ -66,7 +66,8 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
 
 
     prod_review_page_HTML = get_prod_HTML(review_link)
-    all_review_divs = prod_review_page_HTML.findAll("div", {"class": "_1gY8H-"})
+    all_review_divs = prod_review_page_HTML.findAll("div", {"class": "K0kLPL"})
+    print(all_review_divs)
 
     for one_box in all_review_divs :
             """
@@ -85,12 +86,12 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
             except :
                 dic['review'].append("No Review")
             try :
-                user_name = one_box.find(class_ = "_3sxSiS").get_text()
+                user_name = one_box.find(class_ = "_2V5EHH").get_text()
                 dic['user_name'].append(user_name)
             except :
                 dic['user_name'].append("No Username")
             try :
-                rating = one_box.find(class_ = "E_uFuv").get_text()
+                rating = one_box.find(class_ = "_3LWZlK").get_text()
                 dic['rating'].append(rating)
             except :
                 dic['rating'].append("No rating") 
@@ -100,20 +101,20 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
             
     next_review_link = ""
     # where next and page button is present
-    list_length = len(prod_review_page_HTML.find_all("a", {"class" : "_3fVaIS"}))
+    list_length = len(prod_review_page_HTML.find_all("a", {"class" : "_1LKTO3"}))
         
     if(list_length == 1) :
         '''
         Get the link of next button if len=1
         we are at home page
         '''
-        route_url = prod_review_page_HTML.find_all("a", {"class" : "_3fVaIS"})[0]['href']
+        route_url = prod_review_page_HTML.find_all("a", {"class" : "_1LKTO3"})[0]['href']
         next_review_link = base_URL + route_url   
     elif(list_length == 2):
         '''
         we have two button prev and next 
         '''
-        route_url = prod_review_page_HTML.find_all("a", {"class" : "_3fVaIS"})[1]['href']
+        route_url = prod_review_page_HTML.find_all("a", {"class" : "_1LKTO3"})[1]['href']
         next_review_link = base_URL + route_url
     
     return extract_reviews(next_review_link,no_of_review, page_length - 1)
@@ -142,8 +143,8 @@ def result() :
                 prod_page_HTML = get_prod_HTML(url)
                 # print("product html is process")
 
-                product_link_boxes = prod_page_HTML.find_all("div", {"class":"_3O0U0u"})
-                # print("big boxes link is proces")
+                product_link_boxes = prod_page_HTML.find_all("div", {"class":"_13oc-S"})
+                # print("big boxes link is proces") _13oc-S
                 # Store the product link in list of search product 
                 
                 product_link_list = get_product_links(product_link_boxes)
@@ -160,7 +161,7 @@ def result() :
                 data = pd.DataFrame.from_dict(dic) 
                 # Store the file in csv folder
                 data.to_csv("static/CSVs/" + search_string + ".csv", index=False) 
-                
+                dic.clear()
                 return render_template('result.html', reviews = data, file_name = search_string + ".csv")
        
         except Exception as error: 
@@ -179,14 +180,20 @@ def resultByLink() :
             print(no_of_review)
 
             prod_page_HTML = get_prod_HTML(link)
+            # print(prod_page_HTML)
             review_link = comment_box_page_review_link(prod_page_HTML)
+            print(review_link)
             extract_reviews(review_link, no_of_review)
-            data = pd.DataFrame.from_dict(dic) 
+            # print(dic)
+            data = pd.DataFrame.from_dict(dic)
+            # print(data)
             data.to_csv("static/CSVs/" + "result" + ".csv", index=False) 
+            dic.clear()
+
             return render_template('result.html', reviews = data, file_name = "result" + ".csv")
        
         except Exception as error: 
-            error = "Our review scrapper cann't scraps this product could you checkout"
+            error = "Our review scrapper cann't scraps this product could you checkout another product item :)"
             return render_template('index.html', error=error)
     else :
         return redirect('/')

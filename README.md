@@ -1,6 +1,8 @@
 # :metal:	ReviewScrapper 	:snake:	
 ![Review-Scrapper](https://socialify.git.ci/palrohitg/reviewscrapper/image?font=Source%20Code%20Pro&forks=1&issues=1&language=1&owner=1&pattern=Brick%20Wall&pulls=1&stargazers=1&theme=Light)
 
+[![HitCount](http://hits.dwyl.com/palrohitg/https://githubcom/palrohitg/reviewscrapper.svg)](http://hits.dwyl.com/palrohitg/https://githubcom/palrohitg/reviewscrapper)
+
 ## :pushpin: Introduction 
 
 ReviewScrapper is a web based application which is primarly used to scraps the reviews for a particualar products from Ecommerce websites and save the reviews in the csv format that can be further used for Data-Analysis. ReviewScrapper also allows user to limit the reviews based on the Data requirement and scraps the reviews from the multiple pages.
@@ -47,7 +49,8 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
   :ballot_box_with_check: Reduces the Customer time by 70% while spending time for checking review of the product.
 
   :ballot_box_with_check: Helps to Gather information how's customer feels about the specific product and provide better services from business point of view. 
-
+  
+  :ballot_box_with_check: It can be used for offline Saler(Mobile) who want to upscale their business online. And Figuring out which product their put on their portal which increase the sales. 
 
 ## :dart:	Scope of Improvement : 
 
