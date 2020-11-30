@@ -184,7 +184,7 @@ def home() :
 
 
 @app.route("/result", methods = ["GET", "POST"]) 
-@cross_origin
+# @cross_origin
 def result() : 
     
     if request.method == "POST" :
@@ -238,7 +238,7 @@ def result() :
         return redirect('/')
 
 @app.route("/result-by-link", methods = ["GET", "POST"])
-@cross_origin
+# @cross_origin
 def resultByLink() : 
     if request.method == "POST" :
         try :
@@ -274,7 +274,7 @@ def resultByLink() :
         return redirect('/')
 
 @app.route("/about")
-@cross_origin
+# @cross_origin
 def about() :
     return render_template("about.html")
 # handle the non existing urls 
