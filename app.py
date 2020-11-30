@@ -9,19 +9,22 @@ import os
 import shutil
 import random
 import string
+import sys
+import subprocess 
+import time 
+from multiprocessing import Process, Queue
+
+some_queue = None
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-# path for csv files 
+# Global Path 
 CSVs_path = os.path.join('static', 'CSVs')
 
 
 # Global Varibles 
 base_URL = "https://flipkart.com"
-# dbConn = pymongo.MongoClient("mongodb+srv://mongodbuser:mongodbpassword@cluster0-lsptd.mongodb.net/test?retryWrites=true&w=majority")
-# db_name = "flipkart"
-# db = dbConn[db_name]
 
 dic = {
      "title" : [],
@@ -73,10 +76,9 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
     if (page_length == 0 or no_of_review == 0) :
         return dic
 
-
     prod_review_page_HTML = get_prod_HTML(review_link)
     all_review_divs = prod_review_page_HTML.findAll("div", {"class": "K0kLPL"})
-    print(all_review_divs)
+    print("review link sucess !!!")
 
     for one_box in all_review_divs :
             """
@@ -109,9 +111,7 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
             except :
                 dic['rating'].append("No rating") 
             no_of_review = no_of_review - 1
-            print(no_of_review)
-
-            
+        
     next_review_link = ""
     # where next and page button is present
     list_length = len(prod_review_page_HTML.find_all("a", {"class" : "_1LKTO3"}))
@@ -131,32 +131,60 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
         next_review_link = base_URL + route_url
     
     return extract_reviews(next_review_link,no_of_review, page_length - 1)
-        
 
-# def cleanCSV() :
-#     shutil.rmtree(CSVs_path) 
-#     os.mkdir(CSVs_path)
+
 def clean_CSV_files():
+    '''
+        To clean the previous file present in the CSVs directory
+    '''
     if os.listdir(CSVs_path) != list() :
         files = os.listdir(CSVs_path)
+        print(files)
         for fileName in files : 
             print(fileName)
             os.remove(os.path.join(CSVs_path, fileName))
-    
+    else :
+        return 
+
+
 def random_string() :
+    '''
+        It Generate a random name for the product when search
+        by link 
+    '''
+
     letters = string.ascii_lowercase
     randomString = ''.join(random.choice(letters) for i in range(10))
     return randomString
 
+def start_flaskapp(queue):
+	global some_queue
+	some_queue = queue
+	app.run()
 
-# search product name then we have to create the collection
+
+def restart():
+    # restart the Flask server after each POST Request 
+	try:
+		some_queue.put("something")
+		print ("Restarted successfully")
+		return "Quit"
+	except: 
+		print ("Failed in restart")
+		return "Failed"
+
+
 @app.route("/")
 @cross_origin()
 def home() :
+    '''
+        Index page route that render the index.html file 
+    '''
     return render_template("index.html")
 
 
 @app.route("/result", methods = ["GET", "POST"]) 
+@cross_origin
 def result() : 
     
     if request.method == "POST" :
@@ -167,19 +195,23 @@ def result() :
 
                 # Concate the base-URL + Search Product Ex: https://flipkart/search?q=productName
                 url = base_URL + "/search?q=" + str(search_string)
-                # print(url)
+                print(url)
+                clean_CSV_files()
                 
-                prod_page_HTML = get_prod_HTML(url)
-                # print("product html is process")
+                try : 
+                    prod_page_HTML = get_prod_HTML(url)
+                    print("we have data")
+                except : 
+                    print("no data !!")
 
                 product_link_boxes = prod_page_HTML.find_all("div", {"class":"_13oc-S"})
-                # print("big boxes link is proces") _13oc-S
+                # print(product_link_boxes)
                 # Store the product link in list of search product 
-                
                 product_link_list = get_product_links(product_link_boxes)
+                # print(product_link_boxes)
 
                 # iterate over the strings and find the link url 
-                for link in product_link_list[: 1] : 
+                for link in product_link_list[: 1] :
                     # get the html or each links 
                     prod_page_HTML = get_prod_HTML(link)
                     review_link = comment_box_page_review_link(prod_page_HTML)
@@ -187,10 +219,12 @@ def result() :
                 
                 print("review scrapped......")
                 
-                # cleanCSV()
-
                 data = pd.DataFrame.from_dict(dic) 
-                # Store the file in csv folder
+                
+
+                # restart the flask server 
+                restart()
+
                 data.to_csv("static/CSVs/" + search_string + ".csv", index=False) 
                 dic.clear()
                 return render_template('result.html', reviews = data, file_name = search_string + ".csv")
@@ -200,27 +234,33 @@ def result() :
             error = "Our review scrapper cann't scraps this product could you checkout"
             return render_template('index.html', error=error)
     else :
+        # restart()
         return redirect('/')
 
 @app.route("/result-by-link", methods = ["GET", "POST"])
+@cross_origin
 def resultByLink() : 
     if request.method == "POST" :
         try :
             link = request.form['searchStringLink']
-            clean_CSV_files()
+            
             no_of_review = int(request.form['noOfReview'])
             print(no_of_review)
 
             prod_page_HTML = get_prod_HTML(link)
-            # print(prod_page_HTML)
             review_link = comment_box_page_review_link(prod_page_HTML)
             print(review_link)
+            
             extract_reviews(review_link, no_of_review)
             # print(dic)
             data = pd.DataFrame.from_dict(dic)
             # print(data)
 
             fileName = random_string()
+            
+            clean_CSV_files()
+
+            restart()
 
             data.to_csv("static/CSVs/" + fileName + ".csv", index=False) 
             dic.clear()
@@ -234,6 +274,7 @@ def resultByLink() :
         return redirect('/')
 
 @app.route("/about")
+@cross_origin
 def about() :
     return render_template("about.html")
 # handle the non existing urls 
@@ -241,7 +282,16 @@ def about() :
 def page_not_found(e):
     return redirect("/")
 
-if __name__ == "__main__":
-    app.jinja_env.auto_reload = True
-    app.run(debug=True, host='0.0.0.0')
-    # app.run(host='127.0.0.1', port=8000)
+
+if __name__ =='__main__':
+	q = Queue()
+	p = Process(target=start_flaskapp, args=[q,])
+	p.start()
+	while True: #wathing queue, if there is no call than sleep, otherwise break
+		if q.empty(): 
+			time.sleep(1)
+		else:
+			break
+	p.terminate() #terminate flaskapp and then restart the app on subprocess
+	args = [sys.executable] + [sys.argv[0]]
+	subprocess.call(args)

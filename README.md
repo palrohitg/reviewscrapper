@@ -66,3 +66,8 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 * :arrow_right: Live :beers:[vikas-review-scrapper](https://vikas-webscrappper-review.herokuapp.com/) :beers:
 * **Note**: Site maybe down I m working :crossed_fingers:
 * **Side Note**: As the flipkart site has different design for different kind of product the review-scrapper not able to fetch the record. we have implement the desing related to electronic items. 
+
+
+## 📜 LICENSE
+
+  [MIT](https://github.com/palrohitg/reviewscrapper/blob/master/LICENSE) 
