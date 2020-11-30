@@ -5,8 +5,16 @@ import requests
 import pymongo 
 import pandas as pd 
 import numpy as np
+import os 
+import shutil
+import random
+import string
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+
+# path for csv files 
+CSVs_path = os.path.join('static', 'CSVs')
 
 
 # Global Varibles 
@@ -47,6 +55,7 @@ def get_product_links(bigBoxes=None):
 	return temp
 
 
+
 def comment_box_page_review_link(prod_page_HTML=None) :
     '''
     fetch the content of the pages and return the link of page that contain all reviews 
@@ -81,10 +90,14 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
             except :
                 dic['title'].append("No Title")
             try :
-                review = one_box.find(class_ = "").get_text()
+                review = one_box.find(class_ = "_6K-7Co").get_text() 
                 dic['review'].append(review)
             except :
-                dic['review'].append("No Review")
+                try : 
+                    review = one_box.find(class_ = "").get_text()
+                    dic['review'].append(review)  
+                except : 
+                    dic['review'].append("No Review")
             try :
                 user_name = one_box.find(class_ = "_2V5EHH").get_text()
                 dic['user_name'].append(user_name)
@@ -119,6 +132,22 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
     
     return extract_reviews(next_review_link,no_of_review, page_length - 1)
         
+
+# def cleanCSV() :
+#     shutil.rmtree(CSVs_path) 
+#     os.mkdir(CSVs_path)
+def clean_CSV_files():
+    if os.listdir(CSVs_path) != list() :
+        files = os.listdir(CSVs_path)
+        for fileName in files : 
+            print(fileName)
+            os.remove(os.path.join(CSVs_path, fileName))
+    
+def random_string() :
+    letters = string.ascii_lowercase
+    randomString = ''.join(random.choice(letters) for i in range(10))
+    return randomString
+
 
 # search product name then we have to create the collection
 @app.route("/")
@@ -158,6 +187,8 @@ def result() :
                 
                 print("review scrapped......")
                 
+                # cleanCSV()
+
                 data = pd.DataFrame.from_dict(dic) 
                 # Store the file in csv folder
                 data.to_csv("static/CSVs/" + search_string + ".csv", index=False) 
@@ -172,10 +203,11 @@ def result() :
         return redirect('/')
 
 @app.route("/result-by-link", methods = ["GET", "POST"])
-def resultByLink() :
+def resultByLink() : 
     if request.method == "POST" :
         try :
             link = request.form['searchStringLink']
+            clean_CSV_files()
             no_of_review = int(request.form['noOfReview'])
             print(no_of_review)
 
@@ -187,10 +219,13 @@ def resultByLink() :
             # print(dic)
             data = pd.DataFrame.from_dict(dic)
             # print(data)
-            data.to_csv("static/CSVs/" + "result" + ".csv", index=False) 
+
+            fileName = random_string()
+
+            data.to_csv("static/CSVs/" + fileName + ".csv", index=False) 
             dic.clear()
 
-            return render_template('result.html', reviews = data, file_name = "result" + ".csv")
+            return render_template('result.html', reviews = data, file_name =  fileName + ".csv")
        
         except Exception as error: 
             error = "Our review scrapper cann't scraps this product could you checkout another product item :)"
@@ -207,4 +242,6 @@ def page_not_found(e):
     return redirect("/")
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.jinja_env.auto_reload = True
+    app.run(debug=True, host='0.0.0.0')
+    # app.run(host='127.0.0.1', port=8000)

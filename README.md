@@ -50,7 +50,7 @@ ReviewScrapper is a web based application which is primarly used to scraps the r
 
   :ballot_box_with_check: Helps to Gather information how's customer feels about the specific product and provide better services from business point of view. 
   
-  :ballot_box_with_check: It can be used for offline Saler(Mobile) who want to upscale their business online. And Figuring out which product their put on their portal which increase the sales. 
+  :ballot_box_with_check: It can be used for offline Saler(Mobile) who want to upscale their business online. And Figuring out which product their put on their portal which increase the sales.
 
 ## :dart:	Scope of Improvement : 
 
