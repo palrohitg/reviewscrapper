@@ -9,15 +9,10 @@ import os
 import shutil
 import random
 import string
-import sys
-import subprocess 
-import time 
-from multiprocessing import Process, Queue
 
 some_queue = None
 
 app = Flask(__name__)
-app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # Global Path 
 CSVs_path = os.path.join('static', 'CSVs')
@@ -133,16 +128,16 @@ def extract_reviews(review_link, no_of_review = 10, page_length = 10) :
     return extract_reviews(next_review_link,no_of_review, page_length - 1)
 
 
-def clean_CSV_files():
+def clean_CSV_files(path):
     '''
         To clean the previous file present in the CSVs directory
     '''
-    if os.listdir(CSVs_path) != list() :
-        files = os.listdir(CSVs_path)
+    if os.listdir(path) != list() :
+        files = os.listdir(path)
         print(files)
         for fileName in files : 
             print(fileName)
-            os.remove(os.path.join(CSVs_path, fileName))
+            os.remove(os.path.join(path, fileName))
     else :
         return 
 
@@ -156,22 +151,6 @@ def random_string() :
     letters = string.ascii_lowercase
     randomString = ''.join(random.choice(letters) for i in range(10))
     return randomString
-
-def start_flaskapp(queue):
-	global some_queue
-	some_queue = queue
-	app.run()
-
-
-def restart():
-    # restart the Flask server after each POST Request 
-	try:
-		some_queue.put("something")
-		print ("Restarted successfully")
-		return "Quit"
-	except: 
-		print ("Failed in restart")
-		return "Failed"
 
 
 @app.route("/")
@@ -196,7 +175,6 @@ def result() :
                 # Concate the base-URL + Search Product Ex: https://flipkart/search?q=productName
                 url = base_URL + "/search?q=" + str(search_string)
                 print(url)
-                clean_CSV_files()
                 
                 try : 
                     prod_page_HTML = get_prod_HTML(url)
@@ -218,15 +196,18 @@ def result() :
                     extract_reviews(review_link)
                 
                 print("review scrapped......")
-                
                 data = pd.DataFrame.from_dict(dic) 
+
+                path = CSVs_path
                 
+                clean_CSV_files(path)
 
-                # restart the flask server 
-                restart()
+                data.to_csv(os.path.join(path, search_string + ".csv"), index=False) 
+                dic['title'].clear()
+                dic['review'].clear()
+                dic['user_name'].clear()
+                dic['rating'].clear()
 
-                data.to_csv("static/CSVs/" + search_string + ".csv", index=False) 
-                dic.clear()
                 return render_template('result.html', reviews = data, file_name = search_string + ".csv")
        
         except Exception as error: 
@@ -252,18 +233,19 @@ def resultByLink() :
             print(review_link)
             
             extract_reviews(review_link, no_of_review)
-            # print(dic)
             data = pd.DataFrame.from_dict(dic)
-            # print(data)
+
+            path = CSVs_path
 
             fileName = random_string()
             
-            clean_CSV_files()
+            clean_CSV_files(path)
 
-            restart()
-
-            data.to_csv("static/CSVs/" + fileName + ".csv", index=False) 
-            dic.clear()
+            data.to_csv(os.path.join(path, fileName + ".csv"), index=False) 
+            dic['title'].clear()
+            dic['review'].clear()
+            dic['user_name'].clear()
+            dic['rating'].clear()
 
             return render_template('result.html', reviews = data, file_name =  fileName + ".csv")
        
@@ -284,14 +266,5 @@ def page_not_found(e):
 
 
 if __name__ =='__main__':
-	q = Queue()
-	p = Process(target=start_flaskapp, args=[q,])
-	p.start()
-	while True: #wathing queue, if there is no call than sleep, otherwise break
-		if q.empty(): 
-			time.sleep(1)
-		else:
-			break
-	p.terminate() #terminate flaskapp and then restart the app on subprocess
-	args = [sys.executable] + [sys.argv[0]]
-	subprocess.call(args)
+    app.run(debug=True)
+	
