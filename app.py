@@ -231,7 +231,7 @@ def result() :
        
         except Exception as error: 
            
-            error = "Our review scrapper cann't scraps this product could you checkout"
+            error = "Our review scrapper cann't scraps this product could you checkout other items :)"
             return render_template('index.html', error=error)
     else :
         # restart()
